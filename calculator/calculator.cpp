@@ -1,9 +1,21 @@
 #include <iostream>
+#include <sstream>
 #include <stack>
 #include <stdexcept>
 #include <string>
 
 namespace calculator {
+class error : public std::runtime_error {
+ public:
+  error(const std::string& expr, const std::string& msg)
+      : std::runtime_error(msg), expr_(expr) {}
+
+  std::string expr() const { return expr_; }
+
+ private:
+  std::string expr_;
+};
+
 namespace {
 class Caculator {
   enum class OpKind {
@@ -75,6 +87,18 @@ class Caculator {
     return ans;
   }
 
+  void unexpected() const {
+    std::ostringstream msg;
+    msg << "Syntax error: unexpected token \""
+        << expr_.substr(pos_, expr_.size() - pos_) << "\" at index " << pos_;
+    throw calculator::error(expr_, msg.str());
+  }
+
+  void divideByZero() const {
+    std::ostringstream msg;
+    msg << "Syntax error: divide by zero at index " << pos_;
+    throw calculator::error(expr_, msg.str());
+  }
   int evalExpr() {
     skipSpace();
 
@@ -112,7 +136,7 @@ class Caculator {
         val = evalExpr();
         skipSpace();
         if (getChar() != ')') {
-          throw std::runtime_error("error");
+          unexpected();
         }
         pos_++;
         break;
@@ -138,6 +162,7 @@ class Caculator {
         val = -val;
         break;
       default:
+        unexpected();
         break;
     }
     return val;
@@ -218,6 +243,9 @@ class Caculator {
       case OpKind::kMul:
         return a * b;
       case OpKind::kDiv:
+        if (b == 0) {
+          divideByZero();
+        }
         return a / b;
       case OpKind::kMod:
         return a % b;
@@ -231,19 +259,30 @@ class Caculator {
 }  // namespace
 
 int eval(const std::string& expr) {
-  Caculator caculator;
-  return caculator.Eval(expr);
+  int ans = 0;
+  try {
+    /* code */
+    Caculator caculator;
+    ans = caculator.Eval(expr);
+  } catch (const std::exception& e) {
+    std::cout << e.what() << '\n';
+  }
+  return ans;
 }
 }  // namespace calculator
 
 int main() {
-  std::string expr = "(1+2)*3";
+  // std::string expr = "(1+2)*3";
+  // std::cout << calculator::eval(expr) << std::endl;
+
+  // expr = "(1+2)*3+4";
+  // std::cout << calculator::eval(expr) << std::endl;
+
+  // expr = "(1+2)*3+4*5";
+  // std::cout << calculator::eval(expr) << std::endl;
+
+  std::string expr = "xx";
   std::cout << calculator::eval(expr) << std::endl;
 
-  expr = "(1+2)*3+4";
-  std::cout << calculator::eval(expr) << std::endl;
-
-  expr = "(1+2)*3+4*5";
-  std::cout << calculator::eval(expr) << std::endl;
   return 0;
 }
