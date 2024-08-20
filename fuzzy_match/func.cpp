@@ -8,15 +8,15 @@ bool isMatch(std::string s, std::string p) {
   int s_size = s.size(), p_size = p.size();
   while (i < s_size) {
     if (j < p_size && s[i] == p[j] ||
-        p[j] == '?') { // 该位置上两者相同，共同进步
+        p[j] == '?') {  // 该位置上两者相同，共同进步
       i++;
       j++;
-    } else if (j < p_size && p[j] == '*') { // parttern 串中有匹配任意的字符
+    } else if (j < p_size && p[j] == '*') {  // parttern 串中有匹配任意的字符
       star = j;
       match = i;
       j++;
     } else if (star !=
-               -1) { // 回溯，前面有一个*，回退到上一个尝试过的s索引的下一个
+               -1) {  // 回溯，前面有一个*，回退到上一个尝试过的s索引的下一个
       j = star + 1;
       match++;
       i = match;
@@ -32,7 +32,6 @@ bool isMatch(std::string s, std::string p) {
   }
   return true;
 }
-
 int main() {
   string s = "xzmjx";
   string p = "x*x";

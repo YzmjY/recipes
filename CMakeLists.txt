@@ -25,3 +25,4 @@ FetchContent_MakeAvailable(spdlog)
 set(BINARY_OUTPUT_DIR ${PROJECT_SOURCE_DIR}/bin)
 
 add_subdirectory(splitstring)
+add_subdirectory(calculator)
