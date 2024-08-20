@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 
+#include "spdlog/spdlog.h"
+
 using namespace std;
 
 vector<string> split(const string &s, const string &sep) {
@@ -30,8 +32,7 @@ int main() {
   string s = "skj/sds/sfdf/sdee////efgege/";
   auto ans = split(s, "/");
   for (size_t i = 0; i < ans.size(); i++) {
-    /* code */
-    cout << ans[i] << endl;
+    SPDLOG_INFO("{}", ans[i]);
   }
 
   return 0;
