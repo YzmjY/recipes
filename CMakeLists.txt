@@ -26,3 +26,4 @@ set(BINARY_OUTPUT_DIR ${PROJECT_SOURCE_DIR}/bin)
 
 add_subdirectory(splitstring)
 add_subdirectory(calculator)
+add_subdirectory(coroutine)
