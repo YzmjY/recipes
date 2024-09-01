@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.30)
 
 project(recipes)
 
@@ -22,8 +22,17 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
+include(FetchContent)
+FetchContent_Declare(
+    yaml-cpp
+    GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+    GIT_TAG yaml-cpp-0.7.0
+)
+FetchContent_MakeAvailable(yaml-cpp)
+
 set(BINARY_OUTPUT_DIR ${PROJECT_SOURCE_DIR}/bin)
 
 add_subdirectory(splitstring)
 add_subdirectory(calculator)
 add_subdirectory(coroutine)
+add_subdirectory(yaml)
