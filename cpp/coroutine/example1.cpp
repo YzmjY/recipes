@@ -9,9 +9,15 @@ struct coroutine : std::coroutine_handle<promise> {
 struct promise {
   coroutine get_return_object() { return {coroutine::from_promise(*this)}; }
 
-  std::suspend_always initial_suspend() { return {}; }
+  std::suspend_always initial_suspend() {
+    std::cout << "initial_suspend\n";
+    return {};
+  }
 
-  std::suspend_always final_suspend() noexcept { return {}; }
+  std::suspend_always final_suspend() noexcept {
+    std::cout << "final_suspend\n";
+    return {};
+  }
 
   void return_void() {}
 
