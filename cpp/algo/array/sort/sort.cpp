@@ -41,7 +41,7 @@ vector<int> insert_sort(vector<int> arr) {
 
 	for (int i = 1; i < size; ++i) {
 		int cur = arr[i];
-        // [0,i-1]已经是有序数组
+		// [0,i-1]已经是有序数组
 		for (int j = i - 1; j >= 0; j--) {
 			if (cur > arr[j]) {
 				arr[j + 1] = cur;
@@ -53,6 +53,23 @@ vector<int> insert_sort(vector<int> arr) {
 	}
 	return arr;
 }
+
+int partition(vector<int>& arr, int left, int right) {
+	int i = right;
+	int pivot = arr[left];
+	for (int j = left + 1; j <= right; j++) {
+		if (arr[j] > pivot) {
+			swap(arr[i], arr[j]);
+			i--;
+		}
+	}
+
+	swap(arr[i], arr[left]);
+	return i;
+}
+
+void quick_sort(vector<int>& arr, int left, int right) {}
+vector<int> quick_sort(vector<int> arr) {}
 
 struct test_case {
 	vector<int> test;
