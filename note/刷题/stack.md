@@ -72,3 +72,43 @@ vector<int> stackAlgo(const vector<int>& arr) {
 ```
 #### 右侧
 用单调栈来解决查找右侧元素问题时，关注点应该在栈顶元素与待入栈元素。
+- 查找右侧第一个更大元素：
+```cpp
+vector<int> stackAlgo(const vector<int>& arr) {
+	stack<int> stk;
+	vector<int> res(arr.size(), -1);
+
+	for (int i = 0; i < arr.size(); ++i) {
+		// 递增单调栈
+		while (!stk.empty() && arr[stk.top()] < arr[i]) {
+			int top = stk.top();
+			stk.pop();
+			// arr[i]即为arr[top]的下一个更小元素
+			res[top] = arr[i]; // 记录结果
+		}
+		stk.push(i);
+	}
+	return res;
+}
+```
+
+- 查找右侧第一个更小元素：
+```cpp
+vector<int> stackAlgo(const vector<int>& arr) {
+	stack<int> stk;
+	vector<int> res(arr.size(), -1);
+	print("init", arr);
+
+	for (int i = 0; i < arr.size(); ++i) {
+		// 递增单调栈
+		while (!stk.empty() && arr[stk.top()] > arr[i]) {
+			int top = stk.top();
+			stk.pop();
+			// arr[i]即为arr[top]的下一个更小元素
+			res[top] = arr[i]; // 记录结果
+		}
+		stk.push(i);
+	}
+	return res;
+}
+```

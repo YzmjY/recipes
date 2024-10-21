@@ -37,27 +37,14 @@ vector<int> stackAlgo(const vector<int>& arr) {
 	print("init", arr);
 
 	for (int i = 0; i < arr.size(); ++i) {
-		// 递增单调栈, 等号也应该处理，因为i一定是更大的
-		while (!stk.empty() && arr[stk.top()] >= arr[i]) {
+		// 递增单调栈
+		while (!stk.empty() && arr[stk.top()] > arr[i]) {
 			int top = stk.top();
 			stk.pop();
-			if (stk.empty()) {
-				break;
-			}
-			int temp = stk.top();
-			// top的左侧第一个比top小的元素
-			res[top] = arr[temp];
+			// arr[i]即为arr[top]的下一个更小元素
+			res[top] = arr[i]; // 记录结果
 		}
 		stk.push(i);
-	}
-	while (!stk.empty()) {
-		int top = stk.top();
-		stk.pop();
-		if (stk.empty()) {
-			break;
-		}
-		int temp = stk.top();
-		res[top] = arr[temp];
 	}
 	return res;
 }
