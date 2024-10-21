@@ -221,11 +221,8 @@ int binary_search(const vector<int>& v,int target) {
 ```
 
 ### 边界查找
-
 - 有序序列中寻找一个数的左边界
-
-左边界是指第一个大于等于给定 target 值的秩。
-
+> 左边界是指第一个大于等于给定 target 值的秩。
 ```cpp
 int binary*search(const vector<int>& v,int target) {
     int left = 0;
@@ -273,3 +270,8 @@ int binary_search(const vector<int>& v,int target) {
 ```
 
 证明同上。
+
+## 相关算法
+### 双指针
+
+### 滑动窗口
